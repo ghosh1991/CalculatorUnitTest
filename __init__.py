@@ -69,6 +69,7 @@ class CalculatorUTest(unittest.TestCase):
                 break
         self.assertTrue(is_matched)
 
+
     def test_forth(self):
         data_list = self.calculator.getJsonPostObject()
         is_matched = True
@@ -85,23 +86,25 @@ class CalculatorUTest(unittest.TestCase):
             next_month_year = int(next_month_datetime_object.year)
 
             try:
-                date_text = str(next_month_year) + "-" + str(present_month_month + 1) + "-" + str(present_month_day)
+                date_text = str(next_month_year) + "-" + str(present_month_month + 1).zfill(2) + "-" + str(present_month_day).zfill(2)
                 expected_date = datetime.datetime.strptime(date_text, '%Y-%m-%d')
-                if expected_date is not next_month_datetime_object:
+                if expected_date.date() != next_month_datetime_object.date():
                     is_matched = False
                     break
 
             except ValueError:
                 present_month_month = present_month_month + 1 if present_month_day > 31 else present_month_month + 2
                 present_month_day = 1 if present_month_day > 31 else present_month_day
-                date_text = str(next_month_year) + "-" + str(present_month_month + 1) + "-"+ str(present_month_day)
+                if present_month_month > 12:
+                    present_month_month = 1
+                date_text = str(next_month_year) + "-" + str(present_month_month).zfill(2) + "-" + str(present_month_day).zfill(2)
                 expected_date = datetime.datetime.strptime(date_text, '%Y-%m-%d')
-                if expected_date is not next_month_datetime_object:
+                if expected_date.date() != next_month_datetime_object.date():
                     is_matched = False
                     break
                 pass
         self.assertTrue(is_matched)
-
+   
     def test_fifth(self):
         data_list = self.calculator.getJsonPostObject()
         is_equal = True
