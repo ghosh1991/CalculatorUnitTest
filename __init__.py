@@ -25,7 +25,7 @@ class CalculatorUTest(unittest.TestCase):
         self.loanAmount = "5000"
         self.nominalRate = "5.0"
         self.duration = 24
-        self.startDate = "2018-05-31"
+        self.startDate = "2018-05-01"
         self.calculator = Calculator(self.loanAmount, self.nominalRate, self.duration, self.startDate)
         pass
 
